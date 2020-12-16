@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.dao.OrderDao">
+
+	<insert id="insertOrder">
+		insert into bs_order(order_id,create_date,total_money,status,user_id) 
+		values(#{orderId},curdate(),#{totalMoney},#{status},#{userId})
+	</insert>
+	
+	<update id="updateStatus">
+		update bs_order set status = #{status} 
+		where order_id = #{orderId}
+	</update>
+	
+	<select id="getOrderList" resultType="com.atguigu.bean.Order">
+		select order_id,create_date,total_money,status,user_id from bs_order
+		<where>
+			<if test="userId != null">
+				user_id = #{userId}
+			</if>
+		</where>
+	</select>
+
+</mapper>
